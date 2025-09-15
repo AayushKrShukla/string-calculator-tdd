@@ -9,4 +9,8 @@ describe("String Calculator", () => {
   test("should return 0 for empty string", () => {
     expect(calculator.add("")).toBe(0);
   });
+
+  test("should return the number when string has a single number", () => {
+    expect(calculator.add("1")).toBe(1);
+  });
 });
