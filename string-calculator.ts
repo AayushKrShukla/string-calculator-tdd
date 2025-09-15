@@ -1,5 +1,5 @@
 export class StringCalculator {
-  add(numbersString: string) {
+  add(numbersString: string): number {
     if (numbersString === "") {
       return 0;
     }
