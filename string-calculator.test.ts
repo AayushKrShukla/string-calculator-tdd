@@ -13,4 +13,8 @@ describe("String Calculator", () => {
   test("should return the number when string has a single number", () => {
     expect(calculator.add("1")).toBe(1);
   });
+
+  test("should return sum of comma separated value", () => {
+    expect(calculator.add("5,6")).toBe(11);
+  });
 });
