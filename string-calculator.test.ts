@@ -12,9 +12,11 @@ describe("String Calculator", () => {
 
   test("should return the number when string has a single number", () => {
     expect(calculator.add("1")).toBe(1);
+    expect(calculator.add("27")).toBe(27);
   });
 
   test("should return sum of comma separated value", () => {
     expect(calculator.add("5,6")).toBe(11);
+    expect(calculator.add("9,64")).toBe(73);
   });
 });
