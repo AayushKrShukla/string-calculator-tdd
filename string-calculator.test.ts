@@ -42,7 +42,7 @@ describe("String Calculator", () => {
   });
 
   test("should skip numbers greater than 1000", () => {
-    expect(calculator.add("1,2,1000")).toBe(3);
-    expect(calculator.add("//'\n10;200;3000")).toBe(210);
+    expect(calculator.add("1,2,1001")).toBe(3);
+    expect(calculator.add("//'\n11'201'3000")).toBe(212);
   });
 });

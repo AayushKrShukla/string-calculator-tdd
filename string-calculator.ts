@@ -44,7 +44,7 @@ export class StringCalculator {
   }
 
   sum(numbers: number[]): number {
-    const sum = numbers.reduce((sum, number) => sum + number, 0);
+    const sum = numbers.filter(number => number <= 1000).reduce((sum, number) => sum + number, 0);
     return sum;
   }
 }
