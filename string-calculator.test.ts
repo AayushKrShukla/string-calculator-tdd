@@ -40,4 +40,9 @@ describe("String Calculator", () => {
     expect(() => calculator.add("1,2,-3")).toThrow(new Error("negative numbers not allowed -3"))
     expect(() => calculator.add("//;\n1;2;-3;-4")).toThrow(new Error("negative numbers not allowed -3,-4"))
   });
+
+  test("should skip numbers greater than 1000", () => {
+    expect(calculator.add("1,2,1000")).toBe(3);
+    expect(calculator.add("//'\n10;200;3000")).toBe(210);
+  });
 });
