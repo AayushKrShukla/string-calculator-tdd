@@ -27,9 +27,11 @@ export class StringCalculator {
     return { delimiter: defaultDelimiter, numbersString };
   }
 
-  parseNumbers(numbers: string, delimiter: string = "[,\\n]"): number[] {
+  parseNumbers(numbers: string, customDelimiter: string = "[,\\n]"): number[] {
+    const delimiter =
+      customDelimiter === "[,\\n]" ? new RegExp("[,\\n]") : customDelimiter;
     const parsedNumbers = numbers
-      .split(new RegExp(delimiter))
+      .split(delimiter)
       .map((number) => parseInt(number));
     return parsedNumbers;
   }
@@ -44,7 +46,9 @@ export class StringCalculator {
   }
 
   sum(numbers: number[]): number {
-    const sum = numbers.filter(number => number <= 1000).reduce((sum, number) => sum + number, 0);
+    const sum = numbers
+      .filter((number) => number <= 1000)
+      .reduce((sum, number) => sum + number, 0);
     return sum;
   }
 }
