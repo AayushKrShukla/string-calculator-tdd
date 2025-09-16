@@ -32,17 +32,25 @@ describe("String Calculator", () => {
   });
 
   test("should allow custom delimiter to separate values", () => {
-    expect(calculator.add("//;\n1;2;3")).toBe(6);
+    expect(calculator.add("//'\n11'201'3000")).toBe(212);
     expect(calculator.add("//;\n7;11")).toBe(18);
   });
 
   test("should expect an error if input contains negative numbers", () => {
-    expect(() => calculator.add("1,2,-3")).toThrow(new Error("negative numbers not allowed -3"))
-    expect(() => calculator.add("//;\n1;2;-3;-4")).toThrow(new Error("negative numbers not allowed -3,-4"))
+    expect(() => calculator.add("1,2,-3")).toThrow(
+      new Error("negative numbers not allowed -3")
+    );
+    expect(() => calculator.add("//;\n1;2;-3;-4")).toThrow(
+      new Error("negative numbers not allowed -3,-4")
+    );
   });
 
   test("should skip numbers greater than 1000", () => {
     expect(calculator.add("1,2,1001")).toBe(3);
     expect(calculator.add("//'\n11'201'3000")).toBe(212);
+  });
+
+  test("should allow delimiters of any length", () => {
+    expect(calculator.add("//[***]\n1***2***3")).toBe(6);
   });
 });
