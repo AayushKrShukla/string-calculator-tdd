@@ -19,7 +19,11 @@ export class StringCalculator {
     const defaultDelimiter = "[,\\n]";
     if (numbersString.includes("//")) {
       const lines = numbersString.split("\n");
-      const delimiter = lines[0]?.slice(2) || defaultDelimiter;
+      let delimiter = lines[0]?.slice(2) || defaultDelimiter;
+      if (delimiter.startsWith("[") && delimiter.endsWith("]")) {
+        delimiter = delimiter.slice(1, -1).replace(/\]\[/g, "");
+      }
+
       const numbers = lines[1] || "";
       return { delimiter: delimiter, numbersString: numbers };
     }
@@ -28,6 +32,7 @@ export class StringCalculator {
   }
 
   parseNumbers(numbers: string, customDelimiter: string = "[,\\n]"): number[] {
+    const isDefaultDelimiter = customDelimiter === "[,\\n]"
     const delimiter =
       customDelimiter === "[,\\n]" ? new RegExp("[,\\n]") : customDelimiter;
     const parsedNumbers = numbers
