@@ -4,13 +4,25 @@ export class StringCalculator {
       return 0;
     }
 
+    if (numbersString.includes("//")) {
+      const [delimiter, nums] = numbersString.substring(2).split("\n");
+      const numbers = this.parseNumbers(nums || "", delimiter);
+      const sum = this.sum(numbers);
+      return sum;
+    }
+
     const numbers = this.parseNumbers(numbersString);
     const sum = this.sum(numbers);
     return sum;
   }
 
-  parseNumbers(numbers: string): number[] {
-    const parsedNumbers = numbers.split(/[\n,]/g).map(number => parseInt(number));
+  parseNumbers(numbers: string, customDelimiter?: string): number[] {
+    const delimiter = customDelimiter
+      ? RegExp(`${customDelimiter}`, "g")
+      : RegExp("[\n,]", "g");
+    const parsedNumbers = numbers
+      .split(delimiter)
+      .map((number) => parseInt(number));
     return parsedNumbers;
   }
 
