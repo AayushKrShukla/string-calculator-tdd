@@ -13,31 +13,55 @@ export class StringCalculator {
   }
 
   parseDelimiter(numbersString: string): {
-    delimiter: string;
+    delimiter: string[];
     numbersString: string;
   } {
     const defaultDelimiter = "[,\\n]";
     if (numbersString.includes("//")) {
       const lines = numbersString.split("\n");
-      let delimiter = lines[0]?.slice(2) || defaultDelimiter;
-      if (delimiter.startsWith("[") && delimiter.endsWith("]")) {
-        delimiter = delimiter.slice(1, -1).replace(/\]\[/g, "");
+      let delimiterString = lines[0]?.slice(2);
+      const delimiters = delimiterString ? [] : [defaultDelimiter];
+
+      if (
+        delimiterString &&
+        delimiterString.startsWith("[") &&
+        delimiterString.endsWith("]")
+      ) {
+        let tempStr = delimiterString;
+        while (tempStr) {
+          const startIndex = tempStr.indexOf("[");
+          const endIndex = tempStr.indexOf("]");
+          const delimiter = tempStr.slice(startIndex + 1, endIndex);
+          delimiters.push(delimiter);
+          tempStr = tempStr.slice(endIndex + 1);
+        }
       }
 
       const numbers = lines[1] || "";
-      return { delimiter: delimiter, numbersString: numbers };
+      return { delimiter: delimiters, numbersString: numbers };
     }
 
-    return { delimiter: defaultDelimiter, numbersString };
+    return { delimiter: [defaultDelimiter], numbersString };
   }
 
-  parseNumbers(numbers: string, customDelimiter: string = "[,\\n]"): number[] {
-    const isDefaultDelimiter = customDelimiter === "[,\\n]"
-    const delimiter =
-      customDelimiter === "[,\\n]" ? new RegExp("[,\\n]") : customDelimiter;
-    const parsedNumbers = numbers
-      .split(delimiter)
-      .map((number) => parseInt(number));
+  parseNumbers(numbers: string, delimiters: string[]): number[] {
+    let nums = [numbers];
+    for (let delimiter of delimiters) {
+      if (delimiter === "[,\\n]") {
+        const tempArray = [];
+        for (let num of nums) {
+          tempArray.push(...num.split(new RegExp(delimiter)));
+        }
+        nums = tempArray;
+      } else {
+        const tempArray = [];
+        for (let num of nums) {
+          tempArray.push(...num.split(delimiter));
+        }
+        nums = tempArray;
+      }
+    }
+    const parsedNumbers = nums.filter((n) => n.trim()).map((n) => parseInt(n));
     return parsedNumbers;
   }
 
