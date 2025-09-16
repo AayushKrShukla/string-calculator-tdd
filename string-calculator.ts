@@ -4,14 +4,18 @@ export class StringCalculator {
       return 0;
     }
 
-    const replacedString = numbersString.replace(/\n/g, ",");
+    const numbers = this.parseNumbers(numbersString);
+    const sum = this.sum(numbers);
+    return sum;
+  }
 
-    if (replacedString.includes(",")) {
-      const parts: string[] = replacedString.split(",");
-      const sum = parts.reduce((sum, part) => (sum += parseInt(part)), 0);
-      return sum;
-    }
+  parseNumbers(numbers: string): number[] {
+    const parsedNumbers = numbers.split(/[\n,]/g).map(number => parseInt(number));
+    return parsedNumbers;
+  }
 
-    return parseInt(replacedString);
+  sum(numbers: number[]): number {
+    const sum = numbers.reduce((sum, number) => sum + number, 0);
+    return sum;
   }
 }
