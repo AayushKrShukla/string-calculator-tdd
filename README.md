@@ -1,6 +1,6 @@
 # String Calculator
 
-This project is a test task designed to implement Test-Driven Development (TDD) practices and is based on [TDD Kata 1](https://osherove.com/tdd-kata-1/).
+This project is a test task for Incubytes designed to implement Test-Driven Development (TDD) practices and is based on [TDD Kata 1](https://osherove.com/tdd-kata-1/).
 
 A TypeScript implementation of the String Calculator kata. This project parses strings containing numbers separated by custom delimiters and computes their sum, with support for various delimiter formats and input validation.
 
@@ -14,7 +14,7 @@ A TypeScript implementation of the String Calculator kata. This project parses s
 
 ## Usage
 
-The main logic is implemented in [`StringCalculator`](string-calculator.ts). To use:
+The main logic is implemented in [`StringCalculator`](src/string-calculator.ts). To use:
 
 ```ts
 import { StringCalculator } from "./string-calculator";
@@ -35,12 +35,11 @@ npm install
 
 ## Running Tests
 
-Tests are written using Jest in [`string-calculator.test.ts`](string-calculator.test.ts).
+Tests are written using Jest in [`string-calculator.test.ts`](src/string-calculator.test.ts).
 
 To run tests:
 
 ```sh
-npm install
 npm test
 ```
 
