@@ -6,11 +6,7 @@ export class StringCalculator {
 
     if (numbersString.includes(",")) {
       const parts: string[] = numbersString.split(",");
-      let sum = 0;
-      for (const part of parts) {
-        const parsed = parseInt(part);
-        sum += parsed;
-      }
+      const sum = parts.reduce((sum, part) => (sum += parseInt(part)), 0);
       return sum;
     }
 
