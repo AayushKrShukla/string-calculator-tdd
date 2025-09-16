@@ -57,5 +57,10 @@ describe("String Calculator", () => {
 
   test("should allow multiple delimiters", () => {
     expect(calculator.add("//[*][%]\n1*2*%3")).toBe(6);
-  })
+  });
+
+  test("should handle multiple delimiters of any length", () => {
+    expect(calculator.add("//[**][%]\n1**2**%3")).toBe(6);
+    expect(calculator.add("//[*][%]\n1*2%3")).toBe(6);
+  });
 });
