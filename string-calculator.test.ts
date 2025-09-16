@@ -30,4 +30,9 @@ describe("String Calculator", () => {
     expect(calculator.add("1\n2,3,4\n5")).toBe(15)
     expect(calculator.add("1,2\n3\n4,5")).toBe(15)
   })
+
+  test("should allow custom delimiter to separate values", () => {
+    expect(calculator.add("//;\n1;2;3")).toBe(6);
+    expect(calculator.add("//;\n7;11")).toBe(18);
+  });
 });
