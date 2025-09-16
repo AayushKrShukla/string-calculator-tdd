@@ -32,6 +32,12 @@ export class StringCalculator {
     const parsedNumbers = numbers
       .split(new RegExp(delimiter))
       .map((number) => parseInt(number));
+    const negativeNumbers = parsedNumbers.filter((number) => number < 0);
+    if (negativeNumbers.length > 0) {
+      throw new Error(
+        `negative numbers not allowed ${negativeNumbers.join(",")}`
+      );
+    }
     return parsedNumbers;
   }
 
