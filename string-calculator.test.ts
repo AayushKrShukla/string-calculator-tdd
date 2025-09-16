@@ -36,7 +36,7 @@ describe("String Calculator", () => {
     expect(calculator.add("//;\n7;11")).toBe(18);
   });
 
-  test("expect an error if input contains negative numbers", () => {
+  test("should expect an error if input contains negative numbers", () => {
     expect(() => calculator.add("1,2,-3")).toThrow(new Error("negative numbers not allowed -3"))
     expect(() => calculator.add("//;\n1;2;-3;-4")).toThrow(new Error("negative numbers not allowed -3,-4"))
   });
