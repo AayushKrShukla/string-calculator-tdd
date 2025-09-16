@@ -1,27 +1,36 @@
 export class StringCalculator {
-  add(numbersString: string): number {
-    if (numbersString === "") {
+  add(numString: string): number {
+    if (numString === "") {
       return 0;
     }
 
-    if (numbersString.includes("//")) {
-      const [delimiter, nums] = numbersString.substring(2).split("\n");
-      const numbers = this.parseNumbers(nums || "", delimiter);
-      const sum = this.sum(numbers);
-      return sum;
-    }
+    const { delimiter, numbersString } = this.parseDelimiter(numString);
 
-    const numbers = this.parseNumbers(numbersString);
+    const numbers = this.parseNumbers(numbersString, delimiter);
     const sum = this.sum(numbers);
     return sum;
   }
 
-  parseNumbers(numbers: string, customDelimiter?: string): number[] {
-    const delimiter = customDelimiter
-      ? RegExp(`${customDelimiter}`, "g")
-      : RegExp("[\n,]", "g");
+  parseDelimiter(numbersString: string): {
+    delimiter: string;
+    numbersString: string;
+  } {
+    const defaultDelimiter = "[,\\n]";
+    if (numbersString.includes("//")) {
+      const lines = numbersString.split("\n");
+      const delimiter = lines[0]?.slice(2) || defaultDelimiter;
+      const numbers = lines[1] || "";
+      console.log(delimiter);
+      console.log(numbers);
+      return { delimiter: delimiter, numbersString: numbers };
+    }
+
+    return { delimiter: defaultDelimiter, numbersString };
+  }
+
+  parseNumbers(numbers: string, delimiter: string = "[,\\n]"): number[] {
     const parsedNumbers = numbers
-      .split(delimiter)
+      .split(new RegExp(delimiter))
       .map((number) => parseInt(number));
     return parsedNumbers;
   }
